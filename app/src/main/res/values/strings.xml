@@ -2,4 +2,5 @@
     <string name="app_name">AndroidMentoringProgram</string>
     <string name="fragment1_first">Hello</string>
     <string name="fragment1_second">Andersen</string>
+    <string name="rcView_item_text">Figure</string>
 </resources>
