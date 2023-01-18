@@ -1,5 +1,6 @@
 package com.example.androidmentoringprogram
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -22,12 +23,17 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         findViewById<NavigationView>(R.id.navigationView).setNavigationItemSelectedListener {
+            val intent = Intent(this, ViewPagerActivity::class.java)
+
             when(it.itemId) {
-                R.id.settingsMenuItem -> {
-                    Toast.makeText(this, "Settings option selected", Toast.LENGTH_SHORT).show()
+                R.id.lessonOneItem -> {
+                    startActivity(intent)
                 }
-                R.id.profileMenuItem -> {
-                    Toast.makeText(this, "Profile option selected", Toast.LENGTH_SHORT).show()
+                R.id.lessonTwoItem -> {
+                    Toast.makeText(this, "Lesson 2 was selected", Toast.LENGTH_SHORT).show()
+                }
+                R.id.lessonThreeItem -> {
+                    Toast.makeText(this, "Lesson 3 was selected", Toast.LENGTH_SHORT).show()
                 }
             }
             true

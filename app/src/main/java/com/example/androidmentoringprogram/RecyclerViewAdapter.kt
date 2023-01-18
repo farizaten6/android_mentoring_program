@@ -28,7 +28,7 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 
         init {
             item.setOnClickListener {
-                var itemNumberWords = when (itemNumber) {
+                val itemNumberWords = when (itemNumber) {
                     1 -> " (первый)"
                     2 -> " (второй)"
                     3 -> " (третий)"

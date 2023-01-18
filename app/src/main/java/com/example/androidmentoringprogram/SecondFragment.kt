@@ -1,4 +1,4 @@
-package com.example.task1
+package com.example.androidmentoringprogram
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.androidmentoringprogram.R
 
 class SecondFragment: Fragment() {
 
@@ -37,7 +36,7 @@ class SecondFragment: Fragment() {
         }
 
         override fun afterTextChanged(s: Editable?) {
-            Toast.makeText(activity, "${input.text}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "${input.text}", Toast.LENGTH_LONG).show()
         }
     }
 }
