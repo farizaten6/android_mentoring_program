@@ -18,10 +18,6 @@
             android:name=".ViewPagerActivity"
             android:exported="false" />
         <activity
-            android:name=".RecyclerViewActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AndroidMentoringProgram.NoActionBar" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

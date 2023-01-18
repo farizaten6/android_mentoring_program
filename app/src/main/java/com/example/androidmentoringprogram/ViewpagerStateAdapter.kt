@@ -17,6 +17,9 @@ class ViewpagerStateAdapter(fa: FragmentActivity): FragmentStateAdapter(fa) {
             1->{
                 return SecondFragment()
             }
+            2->{
+                return RecyclerViewFragment()
+            }
         }
         return FirstFragment()
     }
