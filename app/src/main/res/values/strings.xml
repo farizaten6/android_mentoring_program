@@ -3,4 +3,7 @@
     <string name="fragment1_first_string">Hello</string>
     <string name="fragment1_second_string">Andersen</string>
     <string name="rcView_item_string">Figure</string>
+    <string name="menu_title">Menu</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
