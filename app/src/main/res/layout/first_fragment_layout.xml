@@ -11,14 +11,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fragment1_first"
+        android:text="@string/fragment1_first_string"
         android:textSize="24sp"
         android:fontFamily="@font/sfprorounded_semibold"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fragment1_second"
+        android:text="@string/fragment1_second_string"
         android:textSize="24sp"
         android:fontFamily="@font/sfprotext_bold"/>
 

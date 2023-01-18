@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 class RecyclerViewActivity : AppCompatActivity() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<RecyclerViewAdapter.RCVHolder>? = null
+    private var adapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
