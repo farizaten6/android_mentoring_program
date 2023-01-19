@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/lessonOneItem"
+            android:icon="@drawable/ic_dot"
+            android:title="Lesson 1">
+        </item>
+        <item
+            android:id="@+id/lessonTwoItem"
+            android:icon="@drawable/ic_dot"
+            android:title="Lesson 2">
+        </item>
+        <item
+            android:id="@+id/lessonThreeItem"
+            android:icon="@drawable/ic_dot"
+            android:title="Lesson 3">
+        </item>
+
+</menu>
