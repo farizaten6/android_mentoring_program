@@ -1,5 +1,6 @@
 package com.example.androidmentoringprogram
 
+import android.content.res.Configuration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(
+    private val orientation: Int?
+): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private val figuresList = listOf(
         Figure(R.drawable.triangle, "Triange"),
         Figure(R.drawable.circle, "Circle"),
@@ -24,6 +27,8 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
     class ViewHolder(item: View): RecyclerView.ViewHolder(item){
         var itemImage: ImageView = item.findViewById(R.id.rcViewItemImage)
         var itemName: TextView = item.findViewById(R.id.rcViewItemText)
+        var itemImage2: ImageView? = item.findViewById(R.id.rcViewItemImage2)
+        var itemName2: TextView? = item.findViewById(R.id.rcViewItemText2)
         var itemNumber: Int? = null
 
         init {
@@ -52,9 +57,21 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemImage.setImageResource(figuresList.get(position).imageId)
-        holder.itemName.text = figuresList.get(position).name
-        holder.itemNumber = position + 1
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            holder.itemImage.setImageResource(figuresList.get(position).imageId)
+            holder.itemName.text = figuresList.get(position).name
+            holder.itemNumber = position + 1
+        } else {
+            if (position % 2 == 0) {
+                holder.itemImage.setImageResource(figuresList.get(position).imageId)
+                holder.itemName.text = figuresList.get(position).name
+                holder.itemNumber = position + 1
+            } else {
+                holder.itemImage2?.setImageResource(figuresList.get(position).imageId)
+                holder.itemName2?.text = figuresList.get(position).name
+                holder.itemNumber = position + 1
+            }
+        }
     }
 
     override fun getItemCount(): Int {

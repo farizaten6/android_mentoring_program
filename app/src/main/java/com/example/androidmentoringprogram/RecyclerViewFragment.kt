@@ -25,7 +25,7 @@ class RecyclerViewFragment : Fragment() {
         val rvView: RecyclerView = view.findViewById(R.id.rcView)
         rvView.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = RecyclerViewAdapter()
+            adapter = RecyclerViewAdapter(activity?.resources?.configuration?.orientation)
         }
         super.onViewCreated(view, savedInstanceState)
     }
