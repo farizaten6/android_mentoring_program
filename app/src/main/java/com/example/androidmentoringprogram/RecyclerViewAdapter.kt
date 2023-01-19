@@ -7,10 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewAdapter(
-    private val itemsList: List<Figure>,
-    private val indexShift: Int
-): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+
+    private val figuresList = getListOfFigures()
 
     class ViewHolder(item: View): RecyclerView.ViewHolder(item){
         var itemImage: ImageView = item.findViewById(R.id.rcViewItemImage)
@@ -44,13 +43,27 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.apply {
-            itemImage.setImageResource(itemsList.get(position).imageId)
-            itemName.text = itemsList.get(position).name
-            itemNumber = position + 1 + indexShift
+            itemImage.setImageResource(figuresList.get(position).imageId)
+            itemName.text = figuresList.get(position).name
+            itemNumber = position + 1
         }
     }
 
     override fun getItemCount(): Int {
-        return itemsList.size
+        return figuresList.size
     }
 }
+
+private fun getListOfFigures() : List<Figure> =
+    listOf(
+        Figure(R.drawable.triangle, "Triange"),
+        Figure(R.drawable.circle, "Circle"),
+        Figure(R.drawable.kite, "Kite"),
+        Figure(R.drawable.parallelogram, "Parallelogram"),
+        Figure(R.drawable.pentagon, "Pentagon"),
+        Figure(R.drawable.rectangle, "Rectangle"),
+        Figure(R.drawable.rhombus, "Rhombus"),
+        Figure(R.drawable.square, "Square"),
+        Figure(R.drawable.trapezoid, "Trapezoid"),
+        Figure(R.drawable.hexagon, "Hexagon")
+    )

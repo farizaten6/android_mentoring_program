@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,41 +24,21 @@ class RecyclerViewFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val figuresList = getListOfFigures()
 
         val rvView: RecyclerView = view.findViewById(R.id.rcView)
-        val rvView2: RecyclerView? = view.findViewById(R.id.rcView2)
-
         if (activity?.resources?.configuration?.orientation == Configuration.ORIENTATION_PORTRAIT) {
             rvView.apply {
                 layoutManager = LinearLayoutManager(activity)
-                adapter = RecyclerViewAdapter(figuresList, indexShift = 0)
+                adapter = RecyclerViewAdapter()
             }
         } else {
             rvView.apply {
-                layoutManager = LinearLayoutManager(activity)
-                adapter = RecyclerViewAdapter(figuresList.subList(0, 5), indexShift = 0)
-            }
-            rvView2?.apply {
-                layoutManager = LinearLayoutManager(activity)
-                adapter = RecyclerViewAdapter(figuresList.subList(5, 10), indexShift = 5)
+                layoutManager = GridLayoutManager(activity, 3)
+                adapter = RecyclerViewAdapter()
             }
         }
+
 
         super.onViewCreated(view, savedInstanceState)
     }
 }
-
-private fun getListOfFigures() : List<Figure> =
-    listOf(
-        Figure(R.drawable.triangle, "Triange"),
-        Figure(R.drawable.circle, "Circle"),
-        Figure(R.drawable.kite, "Kite"),
-        Figure(R.drawable.parallelogram, "Parallelogram"),
-        Figure(R.drawable.pentagon, "Pentagon"),
-        Figure(R.drawable.rectangle, "Rectangle"),
-        Figure(R.drawable.rhombus, "Rhombus"),
-        Figure(R.drawable.square, "Square"),
-        Figure(R.drawable.trapezoid, "Trapezoid"),
-        Figure(R.drawable.hexagon, "Hexagon")
-    )
