@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout-land/recycler_view_fragment.xml" value="0.21516754850088182" />
-        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout-land/recycler_view_item_layout.xml" value="0.21516754850088182" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout-land/recycler_view_item_layout.xml" value="0.1" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.190625" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout-sw600dp/nav_header.xml" value="0.190625" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout-sw600dp/recycler_view_fragment.xml" value="0.264" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_main2.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_recycler_view.xml" value="0.264" />
@@ -14,9 +17,10 @@
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/menu_layout.xml" value="0.253125" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/nav_header.xml" value="0.253125" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/recycler_view_fragment.xml" value="0.1" />
-        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/recycler_view_item_layout.xml" value="0.4" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/recycler_view_item_layout.xml" value="0.1" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/second_fragment_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/menu/menu_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/menu/nav_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
