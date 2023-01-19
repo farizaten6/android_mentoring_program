@@ -9,7 +9,6 @@ class AlertDialogFragment(context: Context): AlertDialog.Builder(context) {
         builder.setMessage(message)
 
         val alertDialog: AlertDialog = builder.create()
-//        alertDialog.setCancelable(false)
         alertDialog.show()
     }
 }
