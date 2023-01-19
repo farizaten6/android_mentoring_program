@@ -12,7 +12,6 @@ class RecyclerViewAdapter(
     private val indexShift: Int
 ): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
-
     class ViewHolder(item: View): RecyclerView.ViewHolder(item){
         var itemImage: ImageView = item.findViewById(R.id.rcViewItemImage)
         var itemName: TextView = item.findViewById(R.id.rcViewItemText)
@@ -44,9 +43,11 @@ class RecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.itemImage.setImageResource(itemsList.get(position).imageId)
-            holder.itemName.text = itemsList.get(position).name
-            holder.itemNumber = position + 1 + indexShift
+        holder.apply {
+            itemImage.setImageResource(itemsList.get(position).imageId)
+            itemName.text = itemsList.get(position).name
+            itemNumber = position + 1 + indexShift
+        }
     }
 
     override fun getItemCount(): Int {

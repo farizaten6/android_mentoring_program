@@ -11,19 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerViewFragment : Fragment() {
 
-    private val figuresList = listOf(
-        Figure(R.drawable.triangle, "Triange"),
-        Figure(R.drawable.circle, "Circle"),
-        Figure(R.drawable.kite, "Kite"),
-        Figure(R.drawable.parallelogram, "Parallelogram"),
-        Figure(R.drawable.pentagon, "Pentagon"),
-        Figure(R.drawable.rectangle, "Rectangle"),
-        Figure(R.drawable.rhombus, "Rhombus"),
-        Figure(R.drawable.square, "Square"),
-        Figure(R.drawable.trapezoid, "Trapezoid"),
-        Figure(R.drawable.hexagon, "Hexagon")
-    )
-
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>? = null
 
@@ -36,6 +23,8 @@ class RecyclerViewFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val figuresList = getListOfFigures()
+
         val rvView: RecyclerView = view.findViewById(R.id.rcView)
         val rvView2: RecyclerView? = view.findViewById(R.id.rcView2)
 
@@ -58,3 +47,17 @@ class RecyclerViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 }
+
+private fun getListOfFigures() : List<Figure> =
+    listOf(
+        Figure(R.drawable.triangle, "Triange"),
+        Figure(R.drawable.circle, "Circle"),
+        Figure(R.drawable.kite, "Kite"),
+        Figure(R.drawable.parallelogram, "Parallelogram"),
+        Figure(R.drawable.pentagon, "Pentagon"),
+        Figure(R.drawable.rectangle, "Rectangle"),
+        Figure(R.drawable.rhombus, "Rhombus"),
+        Figure(R.drawable.square, "Square"),
+        Figure(R.drawable.trapezoid, "Trapezoid"),
+        Figure(R.drawable.hexagon, "Hexagon")
+    )

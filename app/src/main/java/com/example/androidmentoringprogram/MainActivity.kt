@@ -7,36 +7,41 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
+import com.example.androidmentoringprogram.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
     lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        toggle = ActionBarDrawerToggle(this, findViewById(R.id.drawerLayout), R.string.open, R.string.close)
-        findViewById<DrawerLayout>(R.id.drawerLayout).addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        findViewById<NavigationView>(R.id.navigationView).setNavigationItemSelectedListener {
-            val intent = Intent(this, ViewPagerActivity::class.java)
+        binding.apply {
+            toggle = ActionBarDrawerToggle(this@MainActivity, drawerLayout, R.string.open, R.string.close)
+            drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            when(it.itemId) {
-                R.id.lessonOneItem -> {
-                    startActivity(intent)
+            navigationView.setNavigationItemSelectedListener {
+                val intent = Intent(this@MainActivity, ViewPagerActivity::class.java)
+
+                when(it.itemId) {
+                    R.id.lessonOneItem -> {
+                        startActivity(intent)
+                    }
+                    R.id.lessonTwoItem -> {
+                        Toast.makeText(this@MainActivity, "Lesson 2 was selected", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.lessonThreeItem -> {
+                        Toast.makeText(this@MainActivity, "Lesson 3 was selected", Toast.LENGTH_SHORT).show()
+                    }
                 }
-                R.id.lessonTwoItem -> {
-                    Toast.makeText(this, "Lesson 2 was selected", Toast.LENGTH_SHORT).show()
-                }
-                R.id.lessonThreeItem -> {
-                    Toast.makeText(this, "Lesson 3 was selected", Toast.LENGTH_SHORT).show()
-                }
+                true
             }
-            true
         }
     }
 
