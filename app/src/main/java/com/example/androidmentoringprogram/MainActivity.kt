@@ -27,14 +27,15 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
             navigationView.setNavigationItemSelectedListener {
-                val intent = Intent(this@MainActivity, ViewPagerActivity::class.java)
+                val lessonOneIntent = Intent(this@MainActivity, ViewPagerActivity::class.java)
+                val lessonTwoIntent = Intent(this@MainActivity, PlayerActivity::class.java)
 
                 when(it.itemId) {
                     R.id.lessonOneItem -> {
-                        startActivity(intent)
+                        startActivity(lessonOneIntent)
                     }
                     R.id.lessonTwoItem -> {
-                        Toast.makeText(this@MainActivity, "Lesson 2 was selected", Toast.LENGTH_SHORT).show()
+                        startActivity(lessonTwoIntent)
                     }
                     R.id.lessonThreeItem -> {
                         Toast.makeText(this@MainActivity, "Lesson 3 was selected", Toast.LENGTH_SHORT).show()
@@ -51,9 +52,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)){
+/*        if (toggle.onOptionsItemSelected(item)){
             true
-        }
+        }*/
         return super.onOptionsItemSelected(item)
     }
 }

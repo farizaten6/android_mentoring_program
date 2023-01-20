@@ -7,4 +7,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="welcome">Welcome</string>
+    <string name="song_name">Starry Night</string>
+    <string name="song_artist">MMM</string>
+    <string name="song_genre">Instrumental Pop</string>
 </resources>
