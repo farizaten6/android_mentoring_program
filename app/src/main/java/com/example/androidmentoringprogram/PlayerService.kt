@@ -8,28 +8,27 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
-import android.media.AudioManager.STREAM_MUSIC
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
-import android.os.Message
-import android.os.PowerManager
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 
 class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
     private val CHANNEL_ID = "ForegroundService"
-    private val mp = MediaPlayer.create(this, R.raw.starrynight)
-//    private var mPlayOnPrepare = true
+    lateinit private var mp: MediaPlayer
     private var mAudioManager: AudioManager? = null
-    var mPlayer: MediaPlayer? = null
 
     companion object {
-        fun startService(context: Context, message: String) {
+        fun startService(context: Context, message: String?) {
             val startIntent = Intent(context, PlayerService::class.java)
-            startIntent.putExtra("inputExtra", message)
-            ContextCompat.startForegroundService(context, startIntent)
+            message?.let { startIntent.putExtra("inputExtra", message) }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                ContextCompat.startForegroundService(context, startIntent)
+            } else {
+                context.startService(startIntent)
+            }
         }
         fun stopService(context: Context) {
             val stopIntent = Intent(context, PlayerService::class.java)
@@ -40,11 +39,6 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     override fun onBind(p0: Intent?): IBinder? = null
 
     override fun onCreate() {
-        mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        initMediaPlayerIfNeeded()
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         createNotificationChannel()
         val notificationIntent = Intent(this, PlayerActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
@@ -59,41 +53,37 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
             .setSmallIcon(R.drawable.ic_player)
             .setContentIntent(pendingIntent)
             .build()
-        startForeground(1, notification)
 
-        val action = intent?.action
-        when (action) {
-            "Play" -> handlePlay()
-            "Pause" -> handlePause()
-            else -> return START_NOT_STICKY
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForeground(1, notification)
         }
 
+        mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        mp = MediaPlayer.create(this, R.raw.song)
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        intent?.getStringExtra("inputExtra")
+            ?.let {
+                when (it) {
+                    "Play" -> handlePlay()
+                    "Pause" -> handlePause()
+                    "Stop" -> handleStop()
+                }
+            }
         return START_NOT_STICKY
     }
 
     private fun handlePlay() {
-//        mPlayOnPrepare = true
-        mp!!.start()
-//        requestAudioFocus()
+        mp.start()
     }
 
     private fun handlePause() {
-        mPlayer!!.pause()
+        mp.pause()
     }
 
-    private fun initMediaPlayerIfNeeded() {
-        if (mPlayer != null) {
-            return
-        }
-
-        mPlayer = MediaPlayer().apply {
-            setWakeMode(applicationContext, PowerManager.PARTIAL_WAKE_LOCK)
-            setAudioStreamType(STREAM_MUSIC)
-            setOnPreparedListener(this@PlayerService)
-            setOnCompletionListener(this@PlayerService)
-            setOnErrorListener(this@PlayerService)
-        }
-//        setupEqualizer()
+    private fun handleStop() {
+        mp.stop()
     }
 
     private fun createNotificationChannel() {

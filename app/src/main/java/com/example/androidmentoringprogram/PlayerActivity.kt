@@ -1,19 +1,18 @@
 package com.example.androidmentoringprogram
 
-import android.content.Intent
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.androidmentoringprogram.databinding.ActivityPlayerBinding
 
 class PlayerActivity : AppCompatActivity() {
+    lateinit var binding: ActivityPlayerBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-            setContentView(R.layout.activity_player)
+        binding = ActivityPlayerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val binding = ActivityPlayerBinding.inflate(layoutInflater)
-
-        PlayerService.startService(this, "")
+        PlayerService.startService(this, null)
 
         binding.apply {
             playButton.setOnClickListener {
@@ -23,7 +22,7 @@ class PlayerActivity : AppCompatActivity() {
                 PlayerService.startService(this@PlayerActivity, "Pause")
             }
             stopButton.setOnClickListener {
-                PlayerService.stopService(this@PlayerActivity)
+                PlayerService.startService(this@PlayerActivity, "Stop")
             }
         }
     }

@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/drawable/ic_pause.xml" value="0.1395" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/drawable/ic_play.xml" value="0.124" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_main.xml" value="0.16576086956521738" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_player.xml" value="0.264" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/nav_header.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/player_layout.xml" value="0.264" />
-        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/menu/nav_menu.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/menu/nav_menu.xml" value="0.2" />
       </map>
     </option>
   </component>
