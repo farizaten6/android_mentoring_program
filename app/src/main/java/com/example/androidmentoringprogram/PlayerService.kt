@@ -14,16 +14,24 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 
+
+const val NOTIFICATION_TITLE = "The music player is ON"
+const val NOTIFICATION_TEXT = "tap to see details"
+const val INTENT_ACTION_NAME = "inputExtra"
+const val CHANNEL_ID = "ForegroundService"
+const val CHANNEL_NAME = "Foreground Service Channel"
+
 class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
-    private val CHANNEL_ID = "ForegroundService"
-    lateinit private var mp: MediaPlayer
-    private var mAudioManager: AudioManager? = null
+    private var mp: MediaPlayer? = null
+    lateinit private var mAudioManager: AudioManager
+    private var lastPosition = 0
+    private var isPlaying = false
 
     companion object {
         fun startService(context: Context, message: String?) {
             val startIntent = Intent(context, PlayerService::class.java)
-            message?.let { startIntent.putExtra("inputExtra", message) }
+            message?.let { startIntent.putExtra(INTENT_ACTION_NAME, message) }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 ContextCompat.startForegroundService(context, startIntent)
             } else {
@@ -48,8 +56,8 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
             FLAG_IMMUTABLE
         )
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Player Service")
-            .setContentText("content text")
+            .setContentTitle(NOTIFICATION_TITLE)
+            .setContentText(NOTIFICATION_TEXT)
             .setSmallIcon(R.drawable.ic_player)
             .setContentIntent(pendingIntent)
             .build()
@@ -63,7 +71,7 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        intent?.getStringExtra("inputExtra")
+        intent?.getStringExtra(INTENT_ACTION_NAME)
             ?.let {
                 when (it) {
                     "Play" -> handlePlay()
@@ -75,22 +83,31 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     }
 
     private fun handlePlay() {
-        mp.start()
+        if (isPlaying) {
+            mp?.start()
+        } else {
+            mp?.seekTo(lastPosition)
+            mp?.start()
+            isPlaying = true
+            lastPosition = 0
+        }
     }
 
     private fun handlePause() {
-        mp.pause()
+        mp?.pause()
     }
 
     private fun handleStop() {
-        mp.stop()
+        mp?.stop()
+        mp?.prepareAsync()
+        isPlaying = false
     }
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
                 CHANNEL_ID,
-                "Foreground Service Channel",
+                CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_DEFAULT)
             val manager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(serviceChannel)
@@ -102,10 +119,28 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     }
 
     override fun onError(p0: MediaPlayer?, p1: Int, p2: Int): Boolean {
+        mp?.reset()
         return false
     }
 
     override fun onCompletion(p0: MediaPlayer?) {
 
+    }
+
+    private fun destroyPlayer() {
+        lastPosition = mp!!.currentPosition
+        mp?.stop()
+        mp?.release()
+        mp = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        destroyPlayer()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
+        } else {
+            stopForeground(true)
+        }
     }
 }
