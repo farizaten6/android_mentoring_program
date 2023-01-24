@@ -4,7 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidmentoringprogram">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <permission
+        android:name="com.example.androidmentoringprogram.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
+    <permission
+        android:name="com.example.androidmentoringprogram.READ_DATABASE"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidMentoringProgram"
         tools:targetApi="31">
+        <activity
+            android:name=".ResultActivity"
+            android:exported="false" />
         <activity
             android:name=".PlayerActivity"
             android:exported="false" />
@@ -32,7 +44,14 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".PlayerService"/>
+        <provider
+            android:name=".SongsProvider"
+            android:authorities="com.c1ctech.mycontacts"
+            android:exported="true"
+            android:readPermission="com.example.androidmentoringprogram.READ_DATABASE"
+            android:writePermission="com.example.androidmentoringprogram.WRITE_DATABASE" />
+
+        <service android:name=".PlayerService" />
     </application>
 
 </manifest>

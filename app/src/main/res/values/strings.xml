@@ -10,4 +10,5 @@
     <string name="song_name">Starry Night</string>
     <string name="song_artist">MMM</string>
     <string name="song_genre">Instrumental Pop</string>
+    <string name="select_artist">Выбрать исполнителя</string>
 </resources>
