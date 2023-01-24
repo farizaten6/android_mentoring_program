@@ -14,7 +14,6 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 
-
 const val NOTIFICATION_TITLE = "The music player is ON"
 const val NOTIFICATION_TEXT = "tap to see details"
 const val INTENT_ACTION_NAME = "inputExtra"
@@ -24,7 +23,6 @@ const val CHANNEL_NAME = "Foreground Service Channel"
 class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
     private var mp: MediaPlayer? = null
-    lateinit private var mAudioManager: AudioManager
     private var lastPosition = 0
     private var isPlaying = false
 
@@ -38,36 +36,13 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                 context.startService(startIntent)
             }
         }
-        fun stopService(context: Context) {
-            val stopIntent = Intent(context, PlayerService::class.java)
-            context.stopService(stopIntent)
-        }
     }
 
     override fun onBind(p0: Intent?): IBinder? = null
 
     override fun onCreate() {
-        createNotificationChannel()
-        val notificationIntent = Intent(this, PlayerActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0,
-            notificationIntent,
-            FLAG_IMMUTABLE
-        )
-        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle(NOTIFICATION_TITLE)
-            .setContentText(NOTIFICATION_TEXT)
-            .setSmallIcon(R.drawable.ic_player)
-            .setContentIntent(pendingIntent)
-            .build()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForeground(1, notification)
-        }
-
-        mAudioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        mp = MediaPlayer.create(this, R.raw.song)
+        super.onCreate()
+        getSystemService(Context.AUDIO_SERVICE) as AudioManager
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -85,12 +60,16 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     private fun handlePlay() {
         if (isPlaying) {
             mp?.start()
-        } else {
-            mp?.seekTo(lastPosition)
-            mp?.start()
-            isPlaying = true
-            lastPosition = 0
+            return
+        } else if (mp == null) {
+            mp = MediaPlayer.create(this, R.raw.song)
+            createNotificationChannel()
+            startForegroundService()
         }
+        mp?.seekTo(lastPosition)
+        mp?.start()
+        isPlaying = true
+        lastPosition = 0
     }
 
     private fun handlePause() {
@@ -114,6 +93,25 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         }
     }
 
+    private fun startForegroundService(){
+        val pendingIntent: PendingIntent =
+            Intent(this, PlayerActivity::class.java).let { notificationIntent ->
+                PendingIntent.getActivity(applicationContext, 0, notificationIntent, FLAG_IMMUTABLE)
+            }
+
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setContentTitle(NOTIFICATION_TITLE)
+            .setContentText(NOTIFICATION_TEXT)
+            .setSmallIcon(R.drawable.ic_player)
+            .setContentIntent(pendingIntent)
+            .setOngoing(false)
+            .build()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForeground(1, notification)
+        }
+    }
+
     override fun onPrepared(p0: MediaPlayer?) {
 
     }
@@ -132,15 +130,21 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         mp?.stop()
         mp?.release()
         mp = null
+        isPlaying = false
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        destroyPlayer()
+    }
+
+    override fun onTaskRemoved(rootIntent: Intent?) {
         destroyPlayer()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             stopForeground(STOP_FOREGROUND_REMOVE)
         } else {
             stopForeground(true)
         }
+        super.onTaskRemoved(rootIntent)
     }
 }
