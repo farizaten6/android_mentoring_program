@@ -1,5 +1,6 @@
 package com.example.androidmentoringprogram
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.androidmentoringprogram.databinding.ActivityPlayerBinding
@@ -28,6 +29,10 @@ class PlayerActivity : AppCompatActivity() {
                     PlayerService.startService(this@PlayerActivity, "Stop")
                 }
                 isPlaying = false
+            }
+            artistSelectButton.setOnClickListener {
+                val resultIntent = Intent(this@PlayerActivity, ResultActivity::class.java)
+                startActivity(resultIntent)
             }
         }
     }

@@ -46,8 +46,11 @@
 
         <provider
             android:name=".SongsProvider"
-            android:authorities="com.c1ctech.mycontacts"
+            android:authorities="com.example.androidmentoringprogram"
+            android:enabled="true"
             android:exported="true"
+            android:grantUriPermissions="true"
+            android:label="SongsProvider"
             android:readPermission="com.example.androidmentoringprogram.READ_DATABASE"
             android:writePermission="com.example.androidmentoringprogram.WRITE_DATABASE" />
 

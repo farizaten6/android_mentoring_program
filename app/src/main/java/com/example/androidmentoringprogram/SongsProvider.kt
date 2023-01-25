@@ -7,14 +7,14 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteQueryBuilder
 import android.net.Uri
 
-private const val SONGS = 1
-private const val SONGS_ID = 1
+private const val SONGS = 0
+private const val SONG_ID = 0
 
 class SongsProvider: ContentProvider() {
 
     private var myDB: DBHelper? = null
     companion object {
-        val AUTHORITY = "com.example.androidmentoringprogram.SongsProvider"
+        val AUTHORITY = "com.example.androidmentoringprogram"
         val TABLE = "Songs"
         val CONTENT_URI : Uri = Uri.parse("content://" + AUTHORITY + "/" +
                 TABLE)
@@ -22,38 +22,53 @@ class SongsProvider: ContentProvider() {
     val uriMatcher = UriMatcher (UriMatcher.NO_MATCH)
     init {
         uriMatcher.addURI(AUTHORITY, TABLE, SONGS)
-        uriMatcher.addURI(AUTHORITY, "$TABLE/#", SONGS_ID)
+        uriMatcher.addURI(AUTHORITY, "$TABLE/#", SONG_ID)
     }
 
     override fun onCreate(): Boolean {
-        myDB = DBHelper(context, null, null, 1)
-        return false
+        myDB = DBHelper(context)
+        return true
     }
 
-    override fun query(uri: Uri, projection: Array<String>?, selection: String?,
-                        selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
+    override fun query(
+        uri: Uri,
+        projection: Array<String>?,
+        selection: String?,
+        selectionArgs: Array<String>?,
+        sortOrder: String?)
+    : Cursor? {
         val queryBuilder = SQLiteQueryBuilder()
         queryBuilder.tables = DBHelper.TABLE_NAME
 
-        val uriType = uriMatcher.match(uri)
-        when (uriType) {
-            SONGS_ID -> queryBuilder.appendWhere(DBHelper.ID_COL + "="
-                    + uri.lastPathSegment)
-            SONGS -> {
-            }
+        when (uriMatcher.match(uri)) {
+            SONG_ID -> queryBuilder.appendWhere(DBHelper.ID_COL + "=" + "105")
+            SONGS -> { }
             else -> throw IllegalArgumentException("Unknown URI")
         }
 
-        val cursor = queryBuilder.query(myDB?.readableDatabase,
-            projection, selection, selectionArgs, null, null,
+        val cursor = queryBuilder.query(
+            myDB?.readableDatabase,
+            projection,
+            selection,
+            selectionArgs,
+            null,
+            null,
             sortOrder)
-        cursor.setNotificationUri(context?.contentResolver,
-            uri)
+
+        cursor.setNotificationUri(context?.contentResolver, uri)
         return cursor
     }
 
-    override fun insert(p0: Uri, p1: ContentValues?): Uri? {
-        TODO("Not yet implemented")
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        val uriType = uriMatcher.match(uri)
+        val sqlDB = myDB!!.writableDatabase
+        val id: Long
+        when (uriType) {
+            SONGS -> id = sqlDB.insert(DBHelper.TABLE_NAME, null, values)
+            else -> throw IllegalArgumentException("Unknown URI: " + uri)
+        }
+        context?.contentResolver?.notifyChange(uri, null)
+        return Uri.parse("$TABLE/$id")
     }
 
     override fun getType(p0: Uri): String? {

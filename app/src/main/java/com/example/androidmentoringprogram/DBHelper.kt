@@ -7,9 +7,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class DBHelper(context: Context?, name: String?,
-               factory: SQLiteDatabase.CursorFactory?, version: Int) :
-    SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION)  {
+class DBHelper(context: Context?): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION)  {
 
     companion object {
         const val TABLE_NAME = "Songs"
@@ -22,18 +20,18 @@ class DBHelper(context: Context?, name: String?,
         const val DATABASE_VERSION = 1
     }
 
-    private val myCR: ContentResolver?
+    private val myCR: ContentResolver
     init {
-        myCR = context?.contentResolver
+        myCR = context!!.contentResolver
     }
 
     override fun onCreate(db: SQLiteDatabase) {
         val query = ("CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY, " +
+                SONG_LINK_COL + " TEXT" +
                 ARTIST_COl + " TEXT," +
                 GENRE_COL + " TEXT," +
-                NAME_COL + " TEXT," +
-                SONG_LINK_COL + " TEXT" + ")")
+                NAME_COL + " TEXT," + ")")
 
         db.execSQL(query)
     }
@@ -43,18 +41,36 @@ class DBHelper(context: Context?, name: String?,
         onCreate(db)
     }
 
-    fun addSong(songLink: String, artist : String, genre : String, name : String){
+    fun addSong(id: Long, songLink: String, artist : String, genre : String, name : String){
         val values = ContentValues()
+        values.put(ID_COL, id)
         values.put(SONG_LINK_COL, songLink)
         values.put(ARTIST_COl, artist)
         values.put(GENRE_COL, genre)
         values.put(NAME_COL, name)
 
-        val db = this.writableDatabase
-        db.insert(TABLE_NAME, null, values)
-
-        db.close()
+        myCR.insert(SongsProvider.CONTENT_URI, values)
     }
+
+    fun findSong(artistname: String): Song? {
+        val projection = arrayOf(ID_COL, SONG_LINK_COL, ARTIST_COl, GENRE_COL, NAME_COL)
+        val selection = "ARTIST = \"" + artistname + "\""
+        val cursor = myCR.query(SongsProvider.CONTENT_URI, projection, selection, null, null)
+        var song: Song? = null
+        if (cursor!!.moveToFirst()) {
+            cursor.moveToFirst()
+            val id = Integer.parseInt(cursor.getString(0)).toLong()
+            val songLink = cursor.getString(1)
+            val artistName = cursor.getString(2)
+            val genreName = cursor.getString(3)
+            val songName = cursor.getString(4)
+
+            song = Song(id, songLink, artistName, genreName, songName)
+            cursor.close()
+        }
+        return song
+    }
+
 
     fun getSongs(): Cursor? {
         val db = this.readableDatabase
