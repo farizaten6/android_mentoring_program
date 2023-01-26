@@ -27,26 +27,20 @@ class ResultActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
-        setupSpinner(R.id.artistsSpinner, artists)
-        setupSpinner(R.id.genresSpinner, genres)
 
         model = ViewModelProvider(this).get(SongsListViewModel::class.java)
         model.songs.observe(this, Observer { it ->
             songs = it
-
             songs.forEach { artists.add(it.artist) }
-            artists.distinct()
-
+            setupSpinner(R.id.artistsSpinner, artists)
             songs.forEach { genres.add(it.genre) }
-            genres.distinct()
+            setupSpinner(R.id.genresSpinner, genres)
         } )
 
-        db = DBHelper(this)
         findViewById<Button>(R.id.songAdditionButton).setOnClickListener {
-            val id = (1..1000000).random().toLong()
-            (db as DBHelper).addSong(id, "L $id", "A $id", "G $id", "N $id")
-            model.getData(contentResolver)
+            addSongsToDb()
         }
+
     }
 
     override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -83,9 +77,19 @@ class ResultActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
 
     private fun setupSpinner(id: Int, list: List<String>) {
         findViewById<Spinner>(id).setOnItemSelectedListener(this)
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list)
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list.distinct())
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         findViewById<Spinner>(id).setAdapter(arrayAdapter)
+    }
+
+    private fun addSongsToDb(){
+        val id = (1..1000000).random().toLong()
+        db = DBHelper(this)
+        (db as DBHelper).addSong(id, "R.raw.song", "MMM", "Instrumental pop", "Name 1")
+        (db as DBHelper).addSong(id.plus(1), "R.raw.song", "GGG", "G", "Name 2")
+        (db as DBHelper).addSong(id.plus(2), "R.raw.song", "MMM", "G", "Name 3")
+        (db as DBHelper).addSong(id.plus(3), "R.raw.song", "GGG", "Instrumental pop", "Name 4")
+        model.getData(contentResolver)
     }
 
 }

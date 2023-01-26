@@ -41,15 +41,6 @@
         app:layout_constraintTop_toBottomOf="@+id/artistsSpinner"
         app:layout_constraintStart_toEndOf="@+id/genreSelectionView"/>
 
-    <Button
-        android:id="@+id/songSearchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="20dp"
-        android:text="@string/search_song"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/songsRcview"
         android:layout_width="wrap_content"
