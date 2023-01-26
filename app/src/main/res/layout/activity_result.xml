@@ -8,12 +8,64 @@
     tools:context=".ResultActivity">
 
     <TextView
-        android:id="@+id/songResultName"
+        android:id="@+id/artistSelectionView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/artist_selection"/>
+
+    <Spinner
+        android:id="@+id/artistsSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/artistSelectionView" />
+
+    <TextView
+        android:id="@+id/genreSelectionView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artistSelectionView"
+        android:text="@string/genre_selection"/>
+
+    <Spinner
+        android:id="@+id/genresSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/artistsSpinner"
+        app:layout_constraintStart_toEndOf="@+id/genreSelectionView"/>
+
+    <Button
+        android:id="@+id/songSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="NAME TEXT"/>
+        android:layout_margin="20dp"
+        android:text="@string/search_song"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/songsRcview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/genreSelectionView"
+        app:layout_constraintStart_toStartOf="@id/genreSelectionView"
+        android:layout_margin="20dp"/>
+
+    <Button
+        android:id="@+id/songAdditionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"
+        android:text="Добавить песню"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

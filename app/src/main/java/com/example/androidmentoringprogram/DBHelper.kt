@@ -28,10 +28,10 @@ class DBHelper(context: Context?): SQLiteOpenHelper(context, DATABASE_NAME, null
     override fun onCreate(db: SQLiteDatabase) {
         val query = ("CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY, " +
-                SONG_LINK_COL + " TEXT" +
-                ARTIST_COl + " TEXT," +
-                GENRE_COL + " TEXT," +
-                NAME_COL + " TEXT," + ")")
+                SONG_LINK_COL + " TEXT, " +
+                ARTIST_COl + " TEXT, " +
+                GENRE_COL + " TEXT, " +
+                NAME_COL + " TEXT" + ")")
 
         db.execSQL(query)
     }
@@ -52,30 +52,28 @@ class DBHelper(context: Context?): SQLiteOpenHelper(context, DATABASE_NAME, null
         myCR.insert(SongsProvider.CONTENT_URI, values)
     }
 
-    fun findSong(artistname: String): Song? {
-        val projection = arrayOf(ID_COL, SONG_LINK_COL, ARTIST_COl, GENRE_COL, NAME_COL)
-        val selection = "ARTIST = \"" + artistname + "\""
+    fun findSong(artistname: String?, genrename: String?): List<String> {
+        val projection = arrayOf(NAME_COL)
+        var selection: String? = null
+        artistname?.let { selection = "ARTIST = \"$artistname\"" }
+        genrename?.let { selection = "GENRE = \"$genrename\""  }
         val cursor = myCR.query(SongsProvider.CONTENT_URI, projection, selection, null, null)
-        var song: Song? = null
-        if (cursor!!.moveToFirst()) {
-            cursor.moveToFirst()
-            val id = Integer.parseInt(cursor.getString(0)).toLong()
-            val songLink = cursor.getString(1)
-            val artistName = cursor.getString(2)
-            val genreName = cursor.getString(3)
-            val songName = cursor.getString(4)
+        val resultList = mutableListOf<String>()
+        cursor?.getColumnIndex(NAME_COL)?.let {
+            while (cursor.moveToNext()) {
+                val name = cursor.getString(it)
+                resultList.add(name)
+            }
 
-            song = Song(id, songLink, artistName, genreName, songName)
             cursor.close()
         }
-        return song
+        return resultList
     }
-
 
     fun getSongs(): Cursor? {
         val db = this.readableDatabase
 
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null)
+        return db.rawQuery("SELECT * FROM $TABLE_NAME", null)
 
     }
 }

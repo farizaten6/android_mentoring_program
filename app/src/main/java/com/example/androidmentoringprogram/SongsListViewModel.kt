@@ -10,13 +10,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SongsListViewModel : ViewModel() {
-    var songs: MutableLiveData<List<Song>>? = null
+    var songs = MutableLiveData<List<Song>>()
 
-    fun getData(contentResolver: ContentResolver, namePattern: String? = null): MutableLiveData<List<Song>>? {
-        if (songs == null) {
-            songs = MutableLiveData<List<Song>>()
-            loadSongs(contentResolver, namePattern)
-        }
+    fun getData(contentResolver: ContentResolver, namePattern: String? = null): MutableLiveData<List<Song>> {
+        loadSongs(contentResolver, namePattern)
         return songs
     }
 
@@ -25,13 +22,13 @@ class SongsListViewModel : ViewModel() {
             val cursor = contentResolver.query(
                 SongsProvider.CONTENT_URI,
                 arrayOf(DBHelper.ID_COL, DBHelper.SONG_LINK_COL, DBHelper.ARTIST_COl, DBHelper.GENRE_COL, DBHelper.NAME_COL),
-                namePattern?.takeIf { it.isNotEmpty() },//?.let { "${DBHelper.GENRE_COL} LIKE ?" },
-                namePattern?.takeIf { it.isNotEmpty() }?.let { arrayOf("%$it%") },
-                "${DBHelper.ID_COL} ASC",
+                namePattern?.takeIf { it.isNotEmpty() },
+                null, //namePattern?.takeIf { it.isNotEmpty() }?.let { arrayOf("%$it%") },
+                null, //"${DBHelper.ID_COL} ASC",
             ) ?: return@launch
             if (cursor.count == 0) {
                 cursor.close()
-                songs?.postValue(emptyList())
+                songs.postValue(emptyList())
                 return@launch
             }
             val idIndex = cursor.getColumnIndex(DBHelper.ID_COL)
@@ -50,7 +47,7 @@ class SongsListViewModel : ViewModel() {
             }
             Log.d(TAG, "Loaded songs: $list")
             cursor.close()
-            songs?.postValue(list)
+            songs.postValue(list)
         }
     }
 }

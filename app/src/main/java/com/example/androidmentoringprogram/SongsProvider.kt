@@ -40,11 +40,10 @@ class SongsProvider: ContentProvider() {
         val queryBuilder = SQLiteQueryBuilder()
         queryBuilder.tables = DBHelper.TABLE_NAME
 
-        when (uriMatcher.match(uri)) {
+/*        when (uriMatcher.match(uri)) {
             SONG_ID -> queryBuilder.appendWhere(DBHelper.ID_COL + "=" + "105")
-            SONGS -> { }
             else -> throw IllegalArgumentException("Unknown URI")
-        }
+        }*/
 
         val cursor = queryBuilder.query(
             myDB?.readableDatabase,
@@ -60,15 +59,14 @@ class SongsProvider: ContentProvider() {
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        val uriType = uriMatcher.match(uri)
         val sqlDB = myDB!!.writableDatabase
-        val id: Long
-        when (uriType) {
-            SONGS -> id = sqlDB.insert(DBHelper.TABLE_NAME, null, values)
-            else -> throw IllegalArgumentException("Unknown URI: " + uri)
+        val rowId: Long
+        when (uriMatcher.match(uri)) {
+            SONGS -> rowId = sqlDB.insert(DBHelper.TABLE_NAME, null, values)
+            else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
         context?.contentResolver?.notifyChange(uri, null)
-        return Uri.parse("$TABLE/$id")
+        return Uri.parse("$TABLE/$rowId")
     }
 
     override fun getType(p0: Uri): String? {
