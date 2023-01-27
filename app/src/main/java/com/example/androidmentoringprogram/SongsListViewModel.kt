@@ -23,8 +23,8 @@ class SongsListViewModel : ViewModel() {
                 SongsProvider.CONTENT_URI,
                 arrayOf(DBHelper.ID_COL, DBHelper.SONG_LINK_COL, DBHelper.ARTIST_COl, DBHelper.GENRE_COL, DBHelper.NAME_COL),
                 namePattern?.takeIf { it.isNotEmpty() },
-                null, //namePattern?.takeIf { it.isNotEmpty() }?.let { arrayOf("%$it%") },
-                null, //"${DBHelper.ID_COL} ASC",
+                null,
+                null,
             ) ?: return@launch
             if (cursor.count == 0) {
                 cursor.close()
@@ -39,7 +39,7 @@ class SongsListViewModel : ViewModel() {
             val list = mutableListOf<Song>()
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idIndex)
-                val songLink = cursor.getString(songLinkIndex)
+                val songLink = cursor.getInt(songLinkIndex)
                 val artist = cursor.getString(artistIndex)
                 val genre = cursor.getString(genreIndex)
                 val name = cursor.getString(nameIndex)

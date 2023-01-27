@@ -40,11 +40,6 @@ class SongsProvider: ContentProvider() {
         val queryBuilder = SQLiteQueryBuilder()
         queryBuilder.tables = DBHelper.TABLE_NAME
 
-/*        when (uriMatcher.match(uri)) {
-            SONG_ID -> queryBuilder.appendWhere(DBHelper.ID_COL + "=" + "105")
-            else -> throw IllegalArgumentException("Unknown URI")
-        }*/
-
         val cursor = queryBuilder.query(
             myDB?.readableDatabase,
             projection,

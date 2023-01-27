@@ -12,20 +12,23 @@ import androidx.recyclerview.widget.RecyclerView
 class RecyclerViewSongsAdapter(val songsNames: List<String>) : RecyclerView.Adapter<RecyclerViewSongsAdapter.ViewHolder>() {
 
     class ViewHolder(item: View): RecyclerView.ViewHolder(item){
-        var itemName: TextView = item.findViewById(R.id.rcViewSongsItemText)
-        var itemNameText = itemName.text
+        var songItem: TextView = item.findViewById(R.id.rcViewSongsItemText)
+        private lateinit var songItemName: String
 
         init {
             item.setOnClickListener {
+                songItem.text.let {
+                    songItemName = it.toString().substringAfter('-')
+                }
                 val serviceIntent = Intent(item.context, PlayerService::class.java)
-                serviceIntent.putExtra(PlayerService.INTENT_ACTION_NAME, itemNameText)
+                serviceIntent.putExtra(PlayerService.INTENT_ACTION_NAME, songItemName)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     ContextCompat.startForegroundService(item.context, serviceIntent)
                 } else {
                     item.context.startService(serviceIntent)
                 }
 
-                val activityIntent = Intent(item.context, ResultActivity::class.java)
+                val activityIntent = Intent(item.context, PlayerActivity::class.java)
                 item.context.startActivity(activityIntent)
             }
         }
@@ -37,7 +40,7 @@ class RecyclerViewSongsAdapter(val songsNames: List<String>) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemName.text = songsNames.get(position)
+        holder.songItem.text = songsNames.get(position)
     }
 
     override fun getItemCount(): Int {

@@ -26,6 +26,7 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     private var lastPosition = 0
     private var isPlaying = false
     private lateinit var db: SQLiteOpenHelper
+    private var songPath: Int = R.raw.song
 
     companion object {
         fun startService(context: Context, message: String?) {
@@ -62,17 +63,17 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
 
     private fun handlePlay() {
         if (isPlaying) {
-            mp?.start()
+            mp?.start() // after pause
             return
         } else if (mp == null) {
-            mp = MediaPlayer.create(this, R.raw.song)
+            mp = MediaPlayer.create(this, songPath)
             createNotificationChannel()
-            startForegroundService()
+            startForegroundService() // after restart
         }
         mp?.seekTo(lastPosition)
         mp?.start()
         isPlaying = true
-        lastPosition = 0
+        lastPosition = 0 //after stop
     }
 
     private fun handlePause() {
@@ -88,7 +89,9 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     private fun handleSongName(songName: String){
         db = DBHelper(this)
         val song = (db as DBHelper).findSong(null, null, songName)
-
+        handleStop()
+        mp = null
+        songPath = song.first().songLink
     }
 
     private fun createNotificationChannel() {

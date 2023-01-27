@@ -59,7 +59,7 @@ class ResultActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
             findViewById<Spinner>(R.id.genresSpinner).isEnabled = false
             songs = (db as DBHelper).findSong(adapterView.selectedItem.toString(), null, null)
             songs.forEach {
-                names.add("${it.artist} - ${it.name}")
+                names.add("${it.artist}-${it.name}")
             }
         }
         if (adapterView.id == findViewById<Spinner>(R.id.genresSpinner).id && adapterView.selectedItem.toString() != "none") {
@@ -67,7 +67,7 @@ class ResultActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
             findViewById<Spinner>(R.id.genresSpinner).isEnabled = true
             songs = (db as DBHelper).findSong(null, adapterView.selectedItem.toString(), null)
             songs.forEach {
-                names.add("${it.artist} - ${it.name}")
+                names.add("${it.artist}-${it.name}")
             }
         }
 
@@ -90,18 +90,18 @@ class ResultActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
 
     private fun addSongsToDb(){
         db = DBHelper(this)
-        (db as DBHelper).addSong(0L, "R.raw.song", "MMM", "Instrumental", "Starry Night")
-        (db as DBHelper).addSong(1L, "R.raw.Skrillex_Way_To_Break_My_Heart", "Skrillex", "Hip hop", "Way to break my heart")
-        (db as DBHelper).addSong(2L, "R.raw.Camila_Cabello_South_of_the_Border", "Camila_Cabello", "Latin", "South of the border")
-        (db as DBHelper).addSong(3L, "R.raw.Khalid_Beautiful_People", "Khalid", "Pop", "Beautiful people")
-        (db as DBHelper).addSong(4L, "R.raw.Khalid_I_Dont_Care", "Khalid", "Pop", "I don't care")
-        (db as DBHelper).addSong(5L, "R.raw.Eminem_Remember_The_Name", "Eminem", "Rap", "Remember the name")
-        (db as DBHelper).addSong(6L, "R.raw.Ella_Mai_Put_It_All_on_Me", "Ella_Mai", "Rock", "Put it all on me")
-        (db as DBHelper).addSong(7L, "R.raw.H_E_R_I_Don_t_Want_Your_Money", "H.E.R.", "Indie", "I don't want your money")
-        (db as DBHelper).addSong(8L, "R.raw.Travis Scott-Antisocial", "Travis Scott", "Rap", "Antisocial")
-        (db as DBHelper).addSong(9L, "R.raw.Ed_Sheeran_Take_Me_Back_to_London", "Ed Sheeran", "R&B", "Take me back to London")
-        (db as DBHelper).addSong(10L, "R.raw.Ed_Sheeran_Dave_Nothing_On_You", "Ed Sheeran", "Pop", "Dave nothing on you")
-        (db as DBHelper).addSong(11L, "R.raw.Ed Sheeran_BLOW", "Ed Sheeran", "R&B", "BLOW")
+        (db as DBHelper).addSong(0L, R.raw.song, "MMM", "Instrumental", "Starry Night")
+        (db as DBHelper).addSong(1L, R.raw.skrillexwaytobreakmyheart, "Skrillex", "Hip hop", "Way to break my heart")
+        (db as DBHelper).addSong(2L, R.raw.samilacabellosouthoftheborder, "Camila_Cabello", "Latin", "South of the border")
+        (db as DBHelper).addSong(3L, R.raw.khalidbeautifulpeople, "Khalid", "Pop", "Beautiful people")
+        (db as DBHelper).addSong(4L, R.raw.khalididontcare, "Khalid", "Pop", "I don't care")
+        (db as DBHelper).addSong(5L, R.raw.eminemrememberthename, "Eminem", "Rap", "Remember the name")
+        (db as DBHelper).addSong(6L, R.raw.ellamaiputitallonme, "Ella_Mai", "Rock", "Put it all on me")
+        (db as DBHelper).addSong(7L, R.raw.heridontwantyourmoney, "H.E.R.", "Indie", "I don't want your money")
+        (db as DBHelper).addSong(8L, R.raw.travisscottantisocial, "Travis Scott", "Rap", "Antisocial")
+        (db as DBHelper).addSong(9L, R.raw.edsheerantakemebacktolondon, "Ed Sheeran", "R&B", "Take me back to London")
+        (db as DBHelper).addSong(10L, R.raw.edsheerandavenothingonyou, "Ed Sheeran", "Pop", "Dave nothing on you")
+        (db as DBHelper).addSong(11L, R.raw.edsheeranblow, "Ed Sheeran", "R&B", "BLOW")
         model.getData(contentResolver)
     }
 
