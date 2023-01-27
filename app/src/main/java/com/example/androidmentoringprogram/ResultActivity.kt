@@ -19,9 +19,9 @@ class ResultActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
     private lateinit var db: SQLiteOpenHelper
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<RecyclerViewSongsAdapter.ViewHolder>? = null
-    val artists = mutableListOf("none")
-    val genres = mutableListOf("none")
-    var songs = emptyList<Song>()
+    private val artists = mutableListOf("none")
+    private val genres = mutableListOf("none")
+    private var songs = emptyList<Song>()
     lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +46,8 @@ class ResultActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
     override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
 
         recyclerView = findViewById(R.id.songsRcview)
-        var names: List<String> = emptyList()
+        var songs: List<Song>
+        val names: MutableList<String> = mutableListOf()
 
         if (artists.get(position) == "none" && genres.get(position) == "none") {
             findViewById<Spinner>(R.id.artistsSpinner).isEnabled = true
@@ -56,13 +57,18 @@ class ResultActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
         if (adapterView.id == findViewById<Spinner>(R.id.artistsSpinner).id && adapterView.selectedItem.toString() != "none") {
             findViewById<Spinner>(R.id.artistsSpinner).isEnabled = true
             findViewById<Spinner>(R.id.genresSpinner).isEnabled = false
-            names = (db as DBHelper).findSong(adapterView.selectedItem.toString(), null)
+            songs = (db as DBHelper).findSong(adapterView.selectedItem.toString(), null, null)
+            songs.forEach {
+                names.add("${it.artist} - ${it.name}")
+            }
         }
-
         if (adapterView.id == findViewById<Spinner>(R.id.genresSpinner).id && adapterView.selectedItem.toString() != "none") {
             findViewById<Spinner>(R.id.artistsSpinner).isEnabled = false
             findViewById<Spinner>(R.id.genresSpinner).isEnabled = true
-            names = (db as DBHelper).findSong(null, adapterView.selectedItem.toString())
+            songs = (db as DBHelper).findSong(null, adapterView.selectedItem.toString(), null)
+            songs.forEach {
+                names.add("${it.artist} - ${it.name}")
+            }
         }
 
         adapter = RecyclerViewSongsAdapter(names)
@@ -83,12 +89,19 @@ class ResultActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{
     }
 
     private fun addSongsToDb(){
-        val id = (1..1000000).random().toLong()
         db = DBHelper(this)
-        (db as DBHelper).addSong(id, "R.raw.song", "MMM", "Instrumental pop", "Name 1")
-        (db as DBHelper).addSong(id.plus(1), "R.raw.song", "GGG", "G", "Name 2")
-        (db as DBHelper).addSong(id.plus(2), "R.raw.song", "MMM", "G", "Name 3")
-        (db as DBHelper).addSong(id.plus(3), "R.raw.song", "GGG", "Instrumental pop", "Name 4")
+        (db as DBHelper).addSong(0L, "R.raw.song", "MMM", "Instrumental", "Starry Night")
+        (db as DBHelper).addSong(1L, "R.raw.Skrillex_Way_To_Break_My_Heart", "Skrillex", "Hip hop", "Way to break my heart")
+        (db as DBHelper).addSong(2L, "R.raw.Camila_Cabello_South_of_the_Border", "Camila_Cabello", "Latin", "South of the border")
+        (db as DBHelper).addSong(3L, "R.raw.Khalid_Beautiful_People", "Khalid", "Pop", "Beautiful people")
+        (db as DBHelper).addSong(4L, "R.raw.Khalid_I_Dont_Care", "Khalid", "Pop", "I don't care")
+        (db as DBHelper).addSong(5L, "R.raw.Eminem_Remember_The_Name", "Eminem", "Rap", "Remember the name")
+        (db as DBHelper).addSong(6L, "R.raw.Ella_Mai_Put_It_All_on_Me", "Ella_Mai", "Rock", "Put it all on me")
+        (db as DBHelper).addSong(7L, "R.raw.H_E_R_I_Don_t_Want_Your_Money", "H.E.R.", "Indie", "I don't want your money")
+        (db as DBHelper).addSong(8L, "R.raw.Travis Scott-Antisocial", "Travis Scott", "Rap", "Antisocial")
+        (db as DBHelper).addSong(9L, "R.raw.Ed_Sheeran_Take_Me_Back_to_London", "Ed Sheeran", "R&B", "Take me back to London")
+        (db as DBHelper).addSong(10L, "R.raw.Ed_Sheeran_Dave_Nothing_On_You", "Ed Sheeran", "Pop", "Dave nothing on you")
+        (db as DBHelper).addSong(11L, "R.raw.Ed Sheeran_BLOW", "Ed Sheeran", "R&B", "BLOW")
         model.getData(contentResolver)
     }
 

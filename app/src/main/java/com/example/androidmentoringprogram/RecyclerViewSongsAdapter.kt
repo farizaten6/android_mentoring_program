@@ -17,13 +17,16 @@ class RecyclerViewSongsAdapter(val songsNames: List<String>) : RecyclerView.Adap
 
         init {
             item.setOnClickListener {
-                val intent = Intent(item.context, PlayerService::class.java)
-                intent.putExtra("song", itemNameText)
+                val serviceIntent = Intent(item.context, PlayerService::class.java)
+                serviceIntent.putExtra(PlayerService.INTENT_ACTION_NAME, itemNameText)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    ContextCompat.startForegroundService(item.context, intent)
+                    ContextCompat.startForegroundService(item.context, serviceIntent)
                 } else {
-                    item.context.startService(intent)
+                    item.context.startService(serviceIntent)
                 }
+
+                val activityIntent = Intent(item.context, ResultActivity::class.java)
+                item.context.startActivity(activityIntent)
             }
         }
     }

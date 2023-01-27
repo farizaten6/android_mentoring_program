@@ -7,6 +7,7 @@ import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.database.sqlite.SQLiteOpenHelper
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Build
@@ -16,7 +17,6 @@ import androidx.core.content.ContextCompat
 
 const val NOTIFICATION_TITLE = "The music player is ON"
 const val NOTIFICATION_TEXT = "tap to see details"
-const val INTENT_ACTION_NAME = "inputExtra"
 const val CHANNEL_ID = "ForegroundService"
 const val CHANNEL_NAME = "Foreground Service Channel"
 
@@ -25,6 +25,7 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     private var mp: MediaPlayer? = null
     private var lastPosition = 0
     private var isPlaying = false
+    private lateinit var db: SQLiteOpenHelper
 
     companion object {
         fun startService(context: Context, message: String?) {
@@ -36,6 +37,7 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                 context.startService(startIntent)
             }
         }
+        const val INTENT_ACTION_NAME = "inputExtra"
     }
 
     override fun onBind(p0: Intent?): IBinder? = null
@@ -52,6 +54,7 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                     "Play" -> handlePlay()
                     "Pause" -> handlePause()
                     "Stop" -> handleStop()
+                    else -> handleSongName(it)
                 }
             }
         return START_NOT_STICKY
@@ -80,6 +83,12 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         mp?.stop()
         mp?.prepareAsync()
         isPlaying = false
+    }
+
+    private fun handleSongName(songName: String){
+        db = DBHelper(this)
+        val song = (db as DBHelper).findSong(null, null, songName)
+
     }
 
     private fun createNotificationChannel() {
