@@ -7,7 +7,6 @@ import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.database.sqlite.SQLiteOpenHelper
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Build

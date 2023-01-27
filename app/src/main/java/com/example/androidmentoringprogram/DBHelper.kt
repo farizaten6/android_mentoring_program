@@ -50,29 +50,4 @@ class DBHelper(context: Context?): SQLiteOpenHelper(context, DATABASE_NAME, null
 
         myCR.insert(SongsProvider.CONTENT_URI, values)
     }
-
-    fun findSong(artistname: String?, genrename: String?, songname: String?): List<Song> {
-        val projection = arrayOf(ID_COL, SONG_LINK_COL, ARTIST_COl, GENRE_COL, NAME_COL)
-        var selection: String? = null
-        artistname?.let { selection = "ARTIST = \"$artistname\"" }
-        genrename?.let { selection = "GENRE = \"$genrename\""  }
-        songname?.let { selection = "NAME = \"$songname\""  }
-        val cursor = myCR.query(SongsProvider.CONTENT_URI, projection, selection, null, null) ?: return emptyList()
-        val resultList = mutableListOf<Song>()
-        val idIndex = cursor.getColumnIndex(ID_COL)
-        val songLinkIndex = cursor.getColumnIndex(SONG_LINK_COL)
-        val artistIndex = cursor.getColumnIndex(ARTIST_COl)
-        val genreIndex = cursor.getColumnIndex(GENRE_COL)
-        val nameIndex = cursor.getColumnIndex(NAME_COL)
-        while (cursor.moveToNext()) {
-            val id = cursor.getLong(idIndex)
-            val songLink = cursor.getInt(songLinkIndex)
-            val artist = cursor.getString(artistIndex)
-            val genre = cursor.getString(genreIndex)
-            val name = cursor.getString(nameIndex)
-            resultList.add(Song(id, songLink, artist, genre, name))
-        }
-        cursor.close()
-        return resultList
-    }
 }

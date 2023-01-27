@@ -1,32 +1,37 @@
 package com.example.androidmentoringprogram
 
 import android.content.Intent
-import android.database.sqlite.SQLiteOpenHelper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.androidmentoringprogram.databinding.ActivityPlayerBinding
 
 class PlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        lateinit var db: SQLiteOpenHelper
-        lateinit var song: List<Song>
+        var foundSongs: List<Song>
         var isPlaying = false
+        val model = ViewModelProvider(this).get(SongsListViewModel::class.java)
 
         super.onCreate(savedInstanceState)
         val binding: ActivityPlayerBinding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        db = DBHelper(this)
 
         binding.apply {
+            model.foundSongs.observe(this@PlayerActivity, Observer { it ->
+                foundSongs = it
+                foundSongs.first().artist
+                songNameView.text = foundSongs.first().name
+                songArtistView.text = foundSongs.first().artist
+                songGenreView.text = foundSongs.first().genre
+                PlayerService.startService(this@PlayerActivity, foundSongs.first().songLink.toString())
+            })
+
             intent.getStringExtra(PlayerService.INTENT_ACTION_NAME)
                 ?.takeIf { it.isNotEmpty() }
                 ?.let {
-                    song = (db as DBHelper).findSong(null, null, it)
-                    songNameView.text = song.first().name
-                    songArtistView.text = song.first().artist
-                    songGenreView.text = song.first().genre
-                    PlayerService.startService(this@PlayerActivity, song.first().songLink.toString())
+                    model.getFoundData(contentResolver,null, null, it)
                 }
 
             playButton.setOnClickListener {
@@ -45,7 +50,7 @@ class PlayerActivity : AppCompatActivity() {
                 isPlaying = false
             }
             artistSelectButton.setOnClickListener {
-                val resultIntent = Intent(this@PlayerActivity, ResultActivity::class.java)
+                val resultIntent = Intent(this@PlayerActivity, SongSelectionActivity::class.java)
                 startActivity(resultIntent)
             }
         }

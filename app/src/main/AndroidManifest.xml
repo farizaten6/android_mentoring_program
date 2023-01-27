@@ -26,7 +26,7 @@
         android:theme="@style/Theme.AndroidMentoringProgram"
         tools:targetApi="31">
         <activity
-            android:name=".ResultActivity"
+            android:name=".SongSelectionActivity"
             android:exported="false" />
         <activity
             android:name=".PlayerActivity"
