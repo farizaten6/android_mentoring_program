@@ -25,10 +25,11 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     private var mp: MediaPlayer? = null
     private var lastPosition = 0
     private var isPlaying = false
-    private lateinit var db: SQLiteOpenHelper
     private var songPath: Int = R.raw.song
 
     companion object {
+        const val INTENT_ACTION_NAME = "inputExtra"
+
         fun startService(context: Context, message: String?) {
             val startIntent = Intent(context, PlayerService::class.java)
             message?.let { startIntent.putExtra(INTENT_ACTION_NAME, message) }
@@ -38,7 +39,6 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                 context.startService(startIntent)
             }
         }
-        const val INTENT_ACTION_NAME = "inputExtra"
     }
 
     override fun onBind(p0: Intent?): IBinder? = null
@@ -55,7 +55,7 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                     "Play" -> handlePlay()
                     "Pause" -> handlePause()
                     "Stop" -> handleStop()
-                    else -> handleSongName(it)
+                    else -> handleSongLink(it)
                 }
             }
         return START_NOT_STICKY
@@ -63,17 +63,17 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
 
     private fun handlePlay() {
         if (isPlaying) {
-            mp?.start() // after pause
+            mp?.start()
             return
         } else if (mp == null) {
             mp = MediaPlayer.create(this, songPath)
             createNotificationChannel()
-            startForegroundService() // after restart
+            startForegroundService()
         }
         mp?.seekTo(lastPosition)
         mp?.start()
         isPlaying = true
-        lastPosition = 0 //after stop
+        lastPosition = 0
     }
 
     private fun handlePause() {
@@ -86,12 +86,10 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         isPlaying = false
     }
 
-    private fun handleSongName(songName: String){
-        db = DBHelper(this)
-        val song = (db as DBHelper).findSong(null, null, songName)
+    private fun handleSongLink(songLink: String) {
         handleStop()
         mp = null
-        songPath = song.first().songLink
+        songPath = songLink.toInt()
     }
 
     private fun createNotificationChannel() {
@@ -124,17 +122,9 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         }
     }
 
-    override fun onPrepared(p0: MediaPlayer?) {
-
-    }
-
     override fun onError(p0: MediaPlayer?, p1: Int, p2: Int): Boolean {
         mp?.reset()
         return false
-    }
-
-    override fun onCompletion(p0: MediaPlayer?) {
-
     }
 
     private fun destroyPlayer() {
@@ -159,4 +149,7 @@ class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         }
         super.onTaskRemoved(rootIntent)
     }
+
+    override fun onPrepared(p0: MediaPlayer?) {}
+    override fun onCompletion(p0: MediaPlayer?) {}
 }

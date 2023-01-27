@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
 
     <LinearLayout
         android:id="@+id/songInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"
         android:gravity="center">
 
         <TextView
+            android:id="@+id/songNameView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/song_name" />
+            tools:text="@string/song_name" />
         <TextView
+            android:id="@+id/songArtistView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/song_artist" />
+            tools:text="@string/song_artist" />
         <TextView
+            android:id="@+id/songGenreView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/song_genre" />
+            tools:text="@string/song_genre" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/songInfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"
         android:gravity="center">
 
@@ -79,9 +78,6 @@
         android:layout_height="48dp"
         android:layout_margin="50dp"
         android:gravity="center"
-        android:text="@string/select_artist"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="@string/select_artist"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

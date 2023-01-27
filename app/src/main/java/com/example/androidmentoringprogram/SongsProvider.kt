@@ -65,15 +65,15 @@ class SongsProvider: ContentProvider() {
     }
 
     override fun getType(p0: Uri): String? {
-        TODO("Not yet implemented")
+        return null
     }
 
     override fun delete(p0: Uri, p1: String?, p2: Array<out String>?): Int {
-        TODO("Not yet implemented")
+        return 0
     }
 
     override fun update(p0: Uri, p1: ContentValues?, p2: String?, p3: Array<out String>?): Int {
-        TODO("Not yet implemented")
+        return 0
     }
 
 }

@@ -1,20 +1,34 @@
 package com.example.androidmentoringprogram
 
 import android.content.Intent
+import android.database.sqlite.SQLiteOpenHelper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.androidmentoringprogram.databinding.ActivityPlayerBinding
 
 class PlayerActivity : AppCompatActivity() {
-    lateinit var binding: ActivityPlayerBinding
-    var isPlaying: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        lateinit var db: SQLiteOpenHelper
+        lateinit var song: List<Song>
+        var isPlaying = false
+
         super.onCreate(savedInstanceState)
-        binding = ActivityPlayerBinding.inflate(layoutInflater)
+        val binding: ActivityPlayerBinding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        db = DBHelper(this)
 
         binding.apply {
+            intent.getStringExtra(PlayerService.INTENT_ACTION_NAME)
+                ?.takeIf { it.isNotEmpty() }
+                ?.let {
+                    song = (db as DBHelper).findSong(null, null, it)
+                    songNameView.text = song.first().name
+                    songArtistView.text = song.first().artist
+                    songGenreView.text = song.first().genre
+                    PlayerService.startService(this@PlayerActivity, song.first().songLink.toString())
+                }
+
             playButton.setOnClickListener {
                 PlayerService.startService(this@PlayerActivity, "Play")
                 isPlaying = true
