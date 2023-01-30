@@ -4,6 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidmentoringprogram">
 
+    <permission
+        android:name="com.example.androidmentoringprogram.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
+    <permission
+        android:name="com.example.androidmentoringprogram.READ_DATABASE"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,6 +26,12 @@
         android:theme="@style/Theme.AndroidMentoringProgram"
         tools:targetApi="31">
         <activity
+            android:name=".SongSelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PlayerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewPagerActivity"
             android:exported="false" />
         <activity
@@ -22,9 +39,22 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".SongsProvider"
+            android:authorities="com.example.androidmentoringprogram"
+            android:enabled="true"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:label="SongsProvider"
+            android:readPermission="com.example.androidmentoringprogram.READ_DATABASE"
+            android:writePermission="com.example.androidmentoringprogram.WRITE_DATABASE" />
+
+        <service android:name=".PlayerService" />
     </application>
 
 </manifest>
