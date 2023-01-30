@@ -21,11 +21,12 @@ class PlayerActivity : AppCompatActivity() {
         binding.apply {
             model.foundSongs.observe(this@PlayerActivity, Observer { it ->
                 foundSongs = it
-                foundSongs.first().artist
-                songNameView.text = foundSongs.first().name
-                songArtistView.text = foundSongs.first().artist
-                songGenreView.text = foundSongs.first().genre
-                PlayerService.startService(this@PlayerActivity, foundSongs.first().songLink.toString())
+                foundSongs.first().apply {
+                    songNameView.text = name
+                    songArtistView.text = artist
+                    songGenreView.text = genre
+                    PlayerService.startService(this@PlayerActivity, songLink.toString())
+                }
             })
 
             intent.getStringExtra(PlayerService.INTENT_ACTION_NAME)

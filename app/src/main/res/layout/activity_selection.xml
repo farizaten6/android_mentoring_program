@@ -11,7 +11,7 @@
         android:id="@+id/artistSelectionView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/artist_selection"/>
@@ -20,7 +20,7 @@
         android:id="@+id/artistsSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/artistSelectionView" />
 
@@ -28,7 +28,7 @@
         android:id="@+id/genreSelectionView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/artistSelectionView"
         android:text="@string/genre_selection"/>
@@ -37,7 +37,7 @@
         android:id="@+id/genresSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margin"
         app:layout_constraintTop_toBottomOf="@+id/artistsSpinner"
         app:layout_constraintStart_toEndOf="@+id/genreSelectionView"/>
 
@@ -47,6 +47,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/genreSelectionView"
         app:layout_constraintStart_toStartOf="@id/genreSelectionView"
-        android:layout_margin="20dp"/>
+        android:layout_margin="@dimen/margin"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

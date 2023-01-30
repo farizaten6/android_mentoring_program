@@ -14,10 +14,10 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 
-const val NOTIFICATION_TITLE = "The music player is ON"
-const val NOTIFICATION_TEXT = "tap to see details"
-const val CHANNEL_ID = "ForegroundService"
-const val CHANNEL_NAME = "Foreground Service Channel"
+private const val NOTIFICATION_TITLE = "The music player is ON"
+private const val NOTIFICATION_TEXT = "tap to see details"
+private const val CHANNEL_ID = "ForegroundService"
+private const val CHANNEL_NAME = "Foreground Service Channel"
 
 class PlayerService: Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
