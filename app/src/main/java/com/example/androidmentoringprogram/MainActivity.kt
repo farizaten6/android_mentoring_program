@@ -4,10 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.example.androidmentoringprogram.databinding.ActivityMainBinding
+import com.example.androidmentoringprogram.firstlesson.ViewPagerActivity
+import com.example.androidmentoringprogram.secondlesson.PlayerActivity
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding

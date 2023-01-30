@@ -1,4 +1,4 @@
-package com.example.androidmentoringprogram
+package com.example.androidmentoringprogram.secondlesson
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.example.androidmentoringprogram.R
 
 private const val NOTIFICATION_TITLE = "The music player is ON"
 private const val NOTIFICATION_TEXT = "tap to see details"

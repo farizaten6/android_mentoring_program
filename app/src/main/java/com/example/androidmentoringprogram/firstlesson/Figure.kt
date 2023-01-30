@@ -1,4 +1,4 @@
-package com.example.androidmentoringprogram
+package com.example.androidmentoringprogram.firstlesson
 
 data class Figure(
     val imageId: Int,

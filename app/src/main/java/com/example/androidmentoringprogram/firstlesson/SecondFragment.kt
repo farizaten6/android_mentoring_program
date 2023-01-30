@@ -1,4 +1,4 @@
-package com.example.androidmentoringprogram
+package com.example.androidmentoringprogram.firstlesson
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.androidmentoringprogram.R
 
 class SecondFragment: Fragment() {
 

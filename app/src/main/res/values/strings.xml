@@ -14,5 +14,4 @@
     <string name="artist_selection">Выбрать исполнителя</string>
     <string name="genre_selection">Выбрать жанр</string>
     <string name="rcView_songs_item_string">Song name</string>
-    <string name="search_song">Поиск</string>
 </resources>

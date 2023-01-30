@@ -1,6 +1,5 @@
-package com.example.androidmentoringprogram
+package com.example.androidmentoringprogram.secondlesson
 
-import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -11,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidmentoringprogram.R
 import com.example.androidmentoringprogram.databinding.ActivitySelectionBinding
 
 class SongSelectionActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener{

@@ -1,4 +1,4 @@
-package com.example.androidmentoringprogram
+package com.example.androidmentoringprogram.secondlesson
 
 import android.content.ContentProvider
 import android.content.ContentValues
