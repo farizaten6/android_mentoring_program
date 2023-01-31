@@ -14,4 +14,11 @@
     <string name="artist_selection">Выбрать исполнителя</string>
     <string name="genre_selection">Выбрать жанр</string>
     <string name="rcView_songs_item_string">Song name</string>
+    <string name="news_topic">Software</string>
+    <string name="news_author">author</string>
+    <string name="news_title">title</string>
+    <string name="news_source">source</string>
+    <string name="news_date">published at</string>
+    <string name="news_desc">description</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
