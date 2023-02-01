@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/purple"
     tools:context=".thirdlesson.NewsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -36,14 +37,24 @@
         android:id="@+id/newsSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin" />
+        android:layout_margin="@dimen/articles_margin" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/newsRCView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        android:layout_margin="@dimen/margin"/>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/articles_margin">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/newsRCView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            android:layout_margin="@dimen/margin"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

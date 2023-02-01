@@ -1,5 +1,6 @@
 package com.example.androidmentoringprogram.thirdlesson
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -11,12 +12,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidmentoringprogram.R
 
+private const val LOADING_MESSAGE = "Loading..."
+
 class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var model: NewsViewModel
+    private lateinit var mProgressDialog: ProgressDialog
     private val newsTopics = listOf("software", "medicine", "travel", "culture",  "education")
     private var news = emptyList<Article>()
+    private var selectedTopic : String = newsTopics.first()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +31,8 @@ class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val toolbar: Toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         setupSpinner()
+        swipeRefreshLayout = findViewById(R.id.container)
+        mProgressDialog = ProgressDialog(this)
 
         model = ViewModelProvider(this).get(NewsViewModel::class.java)
         model.news.observe(this, Observer { it ->
@@ -33,8 +42,13 @@ class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val layoutManager = LinearLayoutManager(applicationContext)
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = adapter
+
+            mProgressDialog.cancel()
         } )
 
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun setupSpinner() {
@@ -47,7 +61,11 @@ class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+        mProgressDialog.setMessage(LOADING_MESSAGE)
+        mProgressDialog.show()
+
         adapterView.selectedItem.toString().let {
+            selectedTopic = it
             model.getNews(it)
             findViewById<Toolbar>(R.id.toolbar).title = it.replaceFirstChar { it.uppercase() }
         }
