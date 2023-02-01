@@ -17,12 +17,12 @@ class SongSelectionActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
 
     private lateinit var model: SongsListViewModel
     private lateinit var binding: ActivitySelectionBinding
+    private lateinit var recyclerView: RecyclerView
     private val artists = mutableListOf("none")
     private val genres = mutableListOf("none")
     private var songs = emptyList<Song>()
     private var foundSongs = emptyList<Song>()
     private val names = mutableListOf<String>()
-    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -74,10 +74,10 @@ class SongSelectionActivity : AppCompatActivity(), AdapterView.OnItemSelectedLis
     }
 
     private fun setupSpinner(id: Int, list: List<String>) {
-        findViewById<Spinner>(id).setOnItemSelectedListener(this)
+        findViewById<Spinner>(id).onItemSelectedListener = this
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list.distinct())
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        findViewById<Spinner>(id).setAdapter(arrayAdapter)
+        findViewById<Spinner>(id).adapter = arrayAdapter
     }
 
     private fun addSongsToDb(){

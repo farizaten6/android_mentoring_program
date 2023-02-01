@@ -2,6 +2,9 @@ package com.example.androidmentoringprogram.thirdlesson
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -11,9 +14,9 @@ import com.example.androidmentoringprogram.R
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-
-class NewsActivity : AppCompatActivity() {
+class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     lateinit var articles: List<Article>
+    private val newsTopics = listOf("software", "medicine", "travel", "culture",  "education")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +24,8 @@ class NewsActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        loadNews()
+        setupSpinner()
+        loadNews(newsTopics.first())
         val recyclerView = findViewById<RecyclerView>(R.id.newsRCView)
         val adapter: RecyclerView.Adapter<RecyclerViewNewsAdapter.ViewHolder> = RecyclerViewNewsAdapter(articles)
         val layoutManager = LinearLayoutManager(applicationContext)
@@ -29,11 +33,11 @@ class NewsActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 
-    private fun loadNews() {
+    private fun loadNews(topic: String) {
         runBlocking {
             launch {
                 articles = try {
-                    Api.instance.getNews().articles?.subList(0, 20) ?: emptyList()
+                    Api.instance.getNews(topic).articles?.subList(0, 20) ?: emptyList()
                 } catch (exception: Exception) {
                     Toast.makeText(this@NewsActivity, "$exception", Toast.LENGTH_LONG).show()
                     emptyList()
@@ -41,5 +45,20 @@ class NewsActivity : AppCompatActivity() {
             }
         }
     }
+    private fun setupSpinner() {
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, newsTopics)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        findViewById<Spinner>(R.id.newsSpinner).apply {
+            onItemSelectedListener = this@NewsActivity
+            adapter = arrayAdapter
+        }
+    }
+
+    override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+        loadNews(adapterView.selectedItem.toString())
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {}
+
 }
 
