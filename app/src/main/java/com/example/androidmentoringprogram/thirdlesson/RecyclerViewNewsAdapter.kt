@@ -17,25 +17,27 @@ class RecyclerViewNewsAdapter(private val articles: List<Article>): RecyclerView
         val itemDate: TextView = item.findViewById(R.id.rcViewNewsItemDate)
 
         init {
-            item.apply {
-                setOnClickListener {
-                    val fragmentActivityIntent = Intent(context, ArticleFragmentActivity::class.java)
-                    ArticleFragment.apply {
-                        fragmentActivityIntent.putExtra(
-                            FRAGMENT_TITLE_INTENT,
-                            itemArticle.title
-                        )
-                        fragmentActivityIntent.putExtra(
-                            FRAGMENT_SOURCE_INTENT,
-                            itemArticle.source?.name
-                        )
-                        fragmentActivityIntent.putExtra(
-                            FRAGMENT_DESC_INTENT,
-                            itemArticle.description
-                        )
-                    }
-                    context.startActivity(fragmentActivityIntent)
+            item.setOnClickListener {
+                val fragmentActivityIntent = Intent(item.context, ArticleFragmentActivity::class.java)
+                ArticleFragment.apply {
+                    fragmentActivityIntent.putExtra(
+                        FRAGMENT_TITLE_INTENT,
+                        itemArticle.title
+                    )
+                    fragmentActivityIntent.putExtra(
+                        FRAGMENT_SOURCE_INTENT,
+                        itemArticle.source?.name
+                    )
+                    fragmentActivityIntent.putExtra(
+                        FRAGMENT_DESC_INTENT,
+                        itemArticle.description
+                    )
+                    fragmentActivityIntent.putExtra(
+                        FRAGMENT_IMAGE_URL_INTENT,
+                        itemArticle.urlToImage
+                    )
                 }
+                item.context.startActivity(fragmentActivityIntent)
             }
         }
     }

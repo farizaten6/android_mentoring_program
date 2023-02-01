@@ -1,12 +1,14 @@
 package com.example.androidmentoringprogram.thirdlesson
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.androidmentoringprogram.R
+import com.squareup.picasso.Picasso
 
 class ArticleFragment : Fragment() {
 
@@ -14,6 +16,7 @@ class ArticleFragment : Fragment() {
         const val FRAGMENT_TITLE_INTENT = "titleInputExtra"
         const val FRAGMENT_SOURCE_INTENT = "sourceInputExtra"
         const val FRAGMENT_DESC_INTENT = "descInputExtra"
+        const val FRAGMENT_IMAGE_URL_INTENT = "imageUrlInputExtra"
     }
 
     override fun onCreateView(
@@ -35,6 +38,11 @@ class ArticleFragment : Fragment() {
             }
             getStringExtra(FRAGMENT_DESC_INTENT).let {
                 view.findViewById<TextView>(R.id.articleFragmentDesc).text = it
+            }
+            getStringExtra(FRAGMENT_IMAGE_URL_INTENT).let {
+                val imageView: ImageView = view.findViewById(R.id.articleFragmentImage)
+                val picasso = Picasso.get()
+                picasso.load(it).into(imageView)
             }
         }
     }
