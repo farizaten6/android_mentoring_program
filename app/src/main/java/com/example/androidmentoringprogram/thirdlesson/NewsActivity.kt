@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidmentoringprogram.R
+import java.text.SimpleDateFormat
+import java.util.*
 
-private const val LOADING_MESSAGE = "Loading..."
+private const val DATE_PATTERN = "yyyy-MM-dd"
 
 class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -47,7 +49,10 @@ class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         } )
 
         swipeRefreshLayout.setOnRefreshListener {
+            val currentDate =SimpleDateFormat(DATE_PATTERN, Locale.US)
+                .format(Calendar.getInstance().apply { add(Calendar.DATE, -1) }.time.time)
             swipeRefreshLayout.isRefreshing = false
+            model.getNews(selectedTopic, currentDate, mProgressDialog)
         }
     }
 
@@ -61,12 +66,11 @@ class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-        mProgressDialog.setMessage(LOADING_MESSAGE)
-        mProgressDialog.show()
+        val currentDate =SimpleDateFormat(DATE_PATTERN, Locale.US).format(Calendar.getInstance().time)
 
         adapterView.selectedItem.toString().let {
             selectedTopic = it
-            model.getNews(it)
+            model.getNews(it, currentDate, mProgressDialog)
             findViewById<Toolbar>(R.id.toolbar).title = it.replaceFirstChar { it.uppercase() }
         }
     }
