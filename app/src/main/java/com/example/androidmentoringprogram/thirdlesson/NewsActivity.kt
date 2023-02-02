@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 private const val DATE_PATTERN = "yyyy-MM-dd"
+private const val LOADING_MESSAGE = "Loading..."
 
 class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -52,7 +53,11 @@ class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val currentDate =SimpleDateFormat(DATE_PATTERN, Locale.US)
                 .format(Calendar.getInstance().apply { add(Calendar.DATE, -1) }.time.time)
             swipeRefreshLayout.isRefreshing = false
-            model.getNews(selectedTopic, currentDate, mProgressDialog)
+
+            mProgressDialog.setMessage(LOADING_MESSAGE)
+            mProgressDialog.show()
+
+            model.getNews(selectedTopic, currentDate)
         }
     }
 
@@ -70,7 +75,11 @@ class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         adapterView.selectedItem.toString().let {
             selectedTopic = it
-            model.getNews(it, currentDate, mProgressDialog)
+
+            mProgressDialog.setMessage(LOADING_MESSAGE)
+            mProgressDialog.show()
+
+            model.getNews(it, currentDate)
             findViewById<Toolbar>(R.id.toolbar).title = it.replaceFirstChar { it.uppercase() }
         }
     }
