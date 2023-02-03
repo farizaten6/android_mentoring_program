@@ -26,7 +26,7 @@ class RecyclerViewNewsAdapter(private val articles: List<Article>): RecyclerView
                     )
                     fragmentActivityIntent.putExtra(
                         FRAGMENT_SOURCE_INTENT,
-                        itemArticle.source?.name
+                        itemArticle.source.name
                     )
                     fragmentActivityIntent.putExtra(
                         FRAGMENT_DESC_INTENT,
