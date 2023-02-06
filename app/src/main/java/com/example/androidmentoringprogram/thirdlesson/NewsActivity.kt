@@ -42,7 +42,7 @@ class NewsActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         model = ViewModelProvider(this).get(NewsViewModel::class.java)
         model.news.observe(this, Observer { it ->
             val recyclerView = findViewById<RecyclerView>(R.id.newsRCView)
-            val adapter: RecyclerView.Adapter<RecyclerViewNewsAdapter.ViewHolder> = RecyclerViewNewsAdapter(it)
+            val adapter: RecyclerView.Adapter<RecyclerViewNewsAdapter.ViewHolder> = RecyclerViewNewsAdapter(it, this)
             val layoutManager = LinearLayoutManager(applicationContext)
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = adapter

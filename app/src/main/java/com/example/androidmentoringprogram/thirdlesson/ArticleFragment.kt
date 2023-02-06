@@ -31,7 +31,7 @@ class ArticleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.intent?.apply {
             getStringExtra(FRAGMENT_TITLE_INTENT).let {
-                view.findViewById<TextView>(R.id.articleFragmentTitle).text = it
+                view.findViewById<TextView>(R.id.newsItemTitle).text = it
             }
             getStringExtra(FRAGMENT_SOURCE_INTENT).let {
                 view.findViewById<TextView>(R.id.articleFragmentSource).text = it

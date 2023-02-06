@@ -2,10 +2,10 @@ package com.example.androidmentoringprogram.fourthlesson
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.example.androidmentoringprogram.R
 import java.lang.Integer.min
 
@@ -24,7 +24,7 @@ class CustomCircleView @JvmOverloads constructor(
 
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
-        paint.color = Color.RED
+        paint.color = ContextCompat.getColor(context, R.color.purple)
         canvas?.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), radius, paint)
     }
 
