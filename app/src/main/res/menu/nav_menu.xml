@@ -23,5 +23,10 @@
             android:icon="@drawable/ic_dot"
             android:title="Lesson 4">
         </item>
+        <item
+            android:id="@+id/lessonFourMapItem"
+            android:icon="@drawable/ic_dot"
+            android:title="Lesson 4 (Map)">
+        </item>
 
 </menu>

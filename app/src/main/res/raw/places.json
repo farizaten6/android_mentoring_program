@@ -1,0 +1,128 @@
+[
+    {
+        "geometry": {
+            "location": {
+                "lat": 43.23455667829874,
+                "lng": 76.87961276125174
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 37.7571005802915,
+                    "lng": -122.4195916697085
+                },
+                "southwest": {
+                    "lat": 37.75440261970851,
+                    "lng": -122.4222896302915
+                }
+            }
+        },
+        "name": "ADK Shopping Mall",
+        "rating": 4.2,
+        "vicinity": "1077 Valencia Street, San Francisco"
+    },
+    {
+        "geometry": {
+            "location": {
+                "lat": 43.204909098449875,
+                "lng": 76.89214404154751
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 37.8090395802915,
+                    "lng": -122.4181850697085
+                },
+                "southwest": {
+                    "lat": 37.8063416197085,
+                    "lng": -122.4208830302915
+                }
+            }
+        },
+        "name": "MEGA Alma-Ata Shopping Mall",
+        "rating": 4.5,
+        "vicinity": "425 Jefferson Street, San Francisco"
+    },
+    {
+        "geometry": {
+            "location": {
+                "lat": 43.221673636309184,
+                "lng": 76.92802126869576
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 37.7771379302915,
+                    "lng": -122.4106816697085
+                },
+                "southwest": {
+                    "lat": 37.7744399697085,
+                    "lng": -122.4133796302915
+                }
+            }
+        },
+        "name": "Esentai Shopping Mall",
+        "rating": 4,
+        "vicinity": "1233 Howard Street, San Francisco"
+    },
+    {
+        "geometry": {
+            "location": {
+                "lat": 43.338396949743775,
+                "lng": 76.95274050692834
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 37.8074053802915,
+                    "lng": -122.4191828197085
+                },
+                "southwest": {
+                    "lat": 37.80470741970851,
+                    "lng": -122.4218807802915
+                }
+            }
+        },
+        "name": "MART Shopping Mall",
+        "rating": 4.1,
+        "vicinity": "2715 Hyde Street, San Francisco"
+    },
+    {
+        "geometry": {
+            "location": {
+                "lat": 43.23627709455265,
+                "lng": 76.77839129830427
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 37.7823185302915,
+                    "lng": -122.4104349697085
+                },
+                "southwest": {
+                    "lat": 37.7796205697085,
+                    "lng": -122.4131329302915
+                }
+            }
+        },
+        "name": "Aport Shopping Mall",
+        "rating": 4.7,
+        "vicinity": "Huckleberry Bicycles, 1073 Market Street, San Francisco"
+    },
+    {
+        "geometry": {
+            "location": {
+                "lat": 43.23395064245266,
+                "lng": 76.95674664669042
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 37.7678018302915,
+                    "lng": -122.4518091697085
+                },
+                "southwest": {
+                    "lat": 37.7651038697085,
+                    "lng": -122.4545071302915
+                }
+            }
+        },
+        "name": "Dostyk Plaza Shopping Mall",
+        "rating": 4.5,
+        "vicinity": "510 Frederick Street, San Francisco"
+    }
+]

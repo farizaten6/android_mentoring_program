@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import com.example.androidmentoringprogram.databinding.ActivityMainBinding
 import com.example.androidmentoringprogram.firstlesson.ViewPagerActivity
 import com.example.androidmentoringprogram.fourthlesson.CustomViewActivity
+import com.example.androidmentoringprogram.fourthlesson.MapActivity
 import com.example.androidmentoringprogram.secondlesson.PlayerActivity
 import com.example.androidmentoringprogram.thirdlesson.NewsActivity
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 val lessonTwoIntent = Intent(this@MainActivity, PlayerActivity::class.java)
                 val lessonThreeIntent = Intent(this@MainActivity, NewsActivity::class.java)
                 val lessonFourIntent = Intent(this@MainActivity, CustomViewActivity::class.java)
+                val lessonFourMapIntent = Intent(this@MainActivity, MapActivity::class.java)
 
                 when(it.itemId) {
                     R.id.lessonOneItem -> {
@@ -44,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     R.id.lessonFourItem -> {
                         startActivity(lessonFourIntent)
+                    }
+                    R.id.lessonFourMapItem -> {
+                        startActivity(lessonFourMapIntent)
                     }
                 }
                 true
