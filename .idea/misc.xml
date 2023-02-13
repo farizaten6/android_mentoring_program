@@ -5,14 +5,25 @@
       <map>
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/drawable/ic_pause.xml" value="0.1395" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/drawable/ic_play.xml" value="0.124" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout-sw600dp/recycler_view_fragment.xml" value="0.536" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_article_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_custom_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_main.xml" value="0.16576086956521738" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_map.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_news.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_player.xml" value="0.2" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_result.xml" value="0.264" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_selection.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/activity_view_pager.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/custom_view_layout.xml" value="0.253125" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/first_fragment_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/fragment_article.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/map_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/nav_header.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/player_layout.xml" value="0.264" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/recycler_view_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/recycler_view_item_layout.xml" value="0.13385416666666666" />
+        <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/recycler_view_news_item.xml" value="0.253125" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/layout/recycler_view_songs_item.xml" value="0.264" />
         <entry key="..\:/Users/Baur/AndroidStudioProjects/AndroidMentoringProgram/app/src/main/res/menu/nav_menu.xml" value="0.2" />
       </map>

@@ -26,10 +26,11 @@
 
         <TextView
             style="@style/TextAppearance.AppCompat.Title"
-            android:id="@+id/rcViewNewsItemTitle"
+            android:id="@+id/newsItemTitle"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textColor="@color/black"
+            android:transitionName="articleTitle"
             tools:text="@string/news_title"/>
 
         <TextView
