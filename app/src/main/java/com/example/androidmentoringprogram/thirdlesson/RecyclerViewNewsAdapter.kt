@@ -61,8 +61,6 @@ class RecyclerViewNewsAdapter(private val articles: List<Article>, private val a
         }
     }
 
-    override fun getItemCount(): Int {
-        return articles.size
-    }
+    override fun getItemCount() = articles.size
 
 }
