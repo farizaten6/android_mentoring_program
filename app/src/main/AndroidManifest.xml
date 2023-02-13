@@ -4,17 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidmentoringprogram">
 
-    <permission
-        android:name="com.example.androidmentoringprogram.WRITE_DATABASE"
-        android:protectionLevel="normal" />
-
-    <permission
-        android:name="com.example.androidmentoringprogram.READ_DATABASE"
-        android:protectionLevel="normal" />
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -26,13 +15,20 @@
         android:theme="@style/Theme.AndroidMentoringProgram"
         tools:targetApi="31">
         <activity
-            android:name=".SongSelectionActivity"
+            android:name=".thirdlesson.ArticleFragmentActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".thirdlesson.NewsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AndroidMentoringProgram.NoActionBar"/>
+        <activity
+            android:name=".secondlesson.SongSelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".PlayerActivity"
+            android:name=".secondlesson.PlayerActivity"
             android:exported="false" />
         <activity
-            android:name=".ViewPagerActivity"
+            android:name=".firstlesson.ViewPagerActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -45,7 +41,7 @@
         </activity>
 
         <provider
-            android:name=".SongsProvider"
+            android:name=".secondlesson.SongsProvider"
             android:authorities="com.example.androidmentoringprogram"
             android:enabled="true"
             android:exported="true"
@@ -54,7 +50,18 @@
             android:readPermission="com.example.androidmentoringprogram.READ_DATABASE"
             android:writePermission="com.example.androidmentoringprogram.WRITE_DATABASE" />
 
-        <service android:name=".PlayerService" />
+        <service android:name=".secondlesson.PlayerService" />
     </application>
+    <permission
+        android:name="com.example.androidmentoringprogram.READ_DATABASE"
+        android:protectionLevel="normal" />
+
+    <permission
+        android:name="com.example.androidmentoringprogram.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

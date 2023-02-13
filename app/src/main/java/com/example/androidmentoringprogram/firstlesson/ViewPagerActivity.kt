@@ -1,8 +1,9 @@
-package com.example.androidmentoringprogram
+package com.example.androidmentoringprogram.firstlesson
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.androidmentoringprogram.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

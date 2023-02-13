@@ -1,4 +1,4 @@
-package com.example.androidmentoringprogram
+package com.example.androidmentoringprogram.firstlesson
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
