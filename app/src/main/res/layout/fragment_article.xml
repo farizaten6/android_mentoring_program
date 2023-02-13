@@ -39,4 +39,10 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/article_image_desc" />
 
+    <ImageView
+        android:id="@+id/articleFragmentSecondImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/article_image_desc" />
+
 </LinearLayout>

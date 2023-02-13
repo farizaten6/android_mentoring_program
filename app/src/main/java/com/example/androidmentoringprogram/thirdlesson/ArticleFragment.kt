@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.androidmentoringprogram.R
 import com.squareup.picasso.Picasso
 
@@ -41,8 +42,16 @@ class ArticleFragment : Fragment() {
             }
             getStringExtra(FRAGMENT_IMAGE_URL_INTENT).let {
                 val imageView: ImageView = view.findViewById(R.id.articleFragmentImage)
+                val secondImageView: ImageView = view.findViewById(R.id.articleFragmentSecondImage)
+
                 val picasso = Picasso.get()
                 picasso.load(it).into(imageView)
+
+                Glide
+                    .with(this@ArticleFragment)
+                    .asBitmap()
+                    .load(it)
+                    .into(secondImageView)
             }
         }
     }
