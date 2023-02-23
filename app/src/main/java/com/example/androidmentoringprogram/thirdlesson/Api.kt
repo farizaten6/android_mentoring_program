@@ -12,7 +12,7 @@ private const val KEY = "0e57927e6bd54135bc82c753cfdc8a0b"
 interface Api {
     @Headers("X-Api-Key:$KEY")
     @GET("/v2/everything")
-    suspend fun getNews(@Query("q") topic: String, @Query("from") date: String) : Response
+    suspend fun getNews(@Query("q") topic: String, @Query("from") date: String) : ResponseState
 
     companion object {
         val instance: Api by lazy {

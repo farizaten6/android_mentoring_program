@@ -1,21 +1,20 @@
 package com.example.androidmentoringprogram.thirdlesson
 
-import android.content.Context
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.orbitmvi.orbit.Container
+import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.reduce
+import org.orbitmvi.orbit.viewmodel.container
 
-class NewsViewModel: ViewModel() {
-    var news = MutableLiveData<List<Article>>()
+class NewsViewModel : ViewModel(), ContainerHost<ResponseState, Nothing> {
 
-    fun getNews(topic: String, date: String, context: Context): MutableLiveData<List<Article>> {
-        loadNews(topic, date, context)
-        return news
-    }
+    override val container: Container<ResponseState, Nothing> = container(ResponseState("ok", 0, emptyList()))
 
-    private fun loadNews(topic: String, date: String, context: Context) {
+    fun getNews(topic: String, date: String) = intent {
         var articles: List<Article>
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -25,7 +24,9 @@ class NewsViewModel: ViewModel() {
                 articles =  emptyList()
                 NewsActivity.status = "$exception"
             }
-            news.postValue(articles)
+            reduce {
+                state.copy(articles = articles)
+            }
         }
     }
 }

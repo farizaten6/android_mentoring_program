@@ -1,6 +1,6 @@
 package com.example.androidmentoringprogram.thirdlesson
 
-data class Response(
+data class ResponseState(
     val status: String,
     val totalResult: Int,
     val articles: List<Article>
